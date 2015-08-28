@@ -1,0 +1,95 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:35729">
+  <title></title>
+
+
+  <!-- inject:css -->
+  <link href="css/ionic.app.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- endinject -->
+
+  <!-- inject:lib:js -->
+  <!-- endinject -->
+
+  <!-- inject:angular:js -->
+  <!-- script src="http://code.ionicframework.com/nightly/js/ionic.bundle.js"></script -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <!-- endinject -->
+
+  <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+  <script src="cordova.js"></script>
+
+  <script src="js/app.js"></script>
+
+</head>
+
+<body ng-app="demo">
+
+  <!--
+      The nav bar that will be updated as we navigate between views.
+    -->
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  <!--
+      The views will be rendered in the <ion-nav-view> directive below
+      Templates are in the /templates folder (but you could also
+      have templates inline in this html file if you'd like).
+    -->
+  <ion-nav-view></ion-nav-view>
+
+  <script type="text/ng-template" id="templates/tab-mytab.html">
+    <ion-view title="My title">
+
+      <ion-nav-buttons side="right">
+        <button class="button button-outline button-dark" ng-click="submit()">
+          Search
+        </button>
+      </ion-nav-buttons>
+
+      <form ng-submit="submit()">
+        <ion-header-bar class="bar-light bar-subheader item-input-inset">
+          <span class="item-input-wrapper">
+            <i class="icon ion-ios7-search placeholder-icon"></i>
+            <input type="search" placeholder="filter" ng-model="search" ng-focus="searchFocused = true" ng-blur="searchFocused = false" ng-change="scrollTop()"></input>
+            <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" />
+            <button ng-if="search.length" class="button-icon ion-android-close input-button" ng-click="clearSearch()">
+            </button>
+          </span>
+        </ion-header-bar>
+      </form>
+
+      <ion-content>
+        <ion-list>
+          <div class="item collection-item {{item.type}}" collection-repeat="item in items" collection-item-height="item.isDivider ? 30 : 60" ng-class="{'item-divider': item.isDivider}">
+            <a class="item-content padding-left item-icon-right" ng-if="!item.isDivider" ng-href="#/tab/mytab/nowhere">
+              <div class="category-marker {{item.type}}"></div>
+              {{item.name}}
+              <i class="icon ion-ios7-arrow-right"></i>
+            </a>
+            <span class="padding-left" ng-if="item.isDivider">
+              {{item.name}}
+            </span>
+          </div>
+        </ion-list>
+      </ion-content>
+
+    </ion-view>
+  </script>
+  <script type="text/ng-template" id="templates/tabs.html">
+    <ion-tabs class="tabs-icon-top">
+
+      <ion-tab title="mytab" icon-on="ion-ios7-trash" icon-off="ion-ios7-trash-outline" href="#/tab/mytab">
+        <ion-nav-view name="tab-mytab"></ion-nav-view>
+      </ion-tab>
+
+    </ion-tabs>
+  </script>
+</body>
+
+</html>
